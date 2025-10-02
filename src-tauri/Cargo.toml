@@ -1,0 +1,32 @@
+[package]
+name = "srexam"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1", features = [] }
+cynic-codegen = { version = "3" }
+
+[dependencies]
+tauri = { version = "1", features = ["shell-open"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+bcrypt = "0.15.1"
+cynic = { version = "3", features = ["http-surf"] }
+surf = "2"
+mysql ="25.0.0"
+chrono = "0.4"
+async-std = "1.10"
+base64 = "0.22.1"
+
+[dev-dependencies]
+insta = "1"
+
+
+[features]
+# This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]

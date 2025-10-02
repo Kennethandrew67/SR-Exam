@@ -1,0 +1,159 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+"""
+User is a person who can login to the system
+"""
+type User {
+    bn_number: ID!
+    name: String!
+    initial: String!
+    nim: String!
+    role: String!
+    major : String!
+}
+
+input NewUser {
+    bn_number: ID!
+    name: String!
+    initial: String!
+    nim: String!
+    role: String!
+    password: String!
+    major : String!
+}
+
+
+"""
+Subject represents the subject in SLC.
+"""
+type Subject {
+    """
+    The subject code.
+    """
+    subject_code: String!
+    """
+    The subject name.
+    """
+    subject_name: String!
+}
+
+"""
+Room represents a room in SLC.
+"""
+type Room {
+    """
+    The room number.
+    """
+    room_number: String!
+    """
+    The room capacity.
+    """
+    room_capacity: Int!
+    """
+    The room type.
+    Can be General, Network, GAT, Meeting, Workstation, Mac, or Beelingua
+    """
+    campus: String!
+}
+
+"""
+Enrollment represents the class mapping.
+"""
+type Enrollment{
+    """
+    The subject code.
+    """
+    subject_code: String!
+    """
+    The student's nim.
+    """
+    nim: String!
+    """
+    The class code.
+    """
+    class_code: String!  
+}
+
+type Query {
+    """
+    Get all users.
+    """
+    getAllUser: [User!]!
+    """
+    Get a user by NIM.
+    """
+    getUserByNIM(nim: String!): User!
+    """
+    Get a user by initial.
+    """
+    getUserByInitial(initial: String!): User!
+    """
+    Get a user by initial.
+    """
+    getRoleByInitial(initial: String!): String!
+    """
+    Get a user's role by NIM.
+    """
+    getRoleByNIM(nim: String!): String!
+    """
+    Get all users with a specific role.
+    """
+    getUserWithRole(role: String!): [User!]!
+    """
+    Get a user's password by username.
+    """
+    getPasswordByInitial(initial: String!): String!
+    """
+    Get a user's password by username.
+    """
+    getPasswordByNIM(nim: String!): String!
+    
+
+    """
+    Get all rooms.
+    """
+    getAllRoom: [Room!]!
+    """
+    Get a room by room number.
+    """
+    getRoomByNumber(room_number: String!): Room!
+    """
+    Get rooms by room type.
+    """
+    getRoomByType(room_type: String!): [Room!]!
+    """
+    Get rooms by room capacity.
+    """
+    getRoomByCapacity(room_capacity: Int!): [Room!]!
+
+    """
+    Get all subjects.
+    """
+    getAllSubject: [Subject!]!
+    """
+    Get a subject by subject code.
+    """
+    getSubjectByCode(subject_code: String!): Subject!
+    """
+    Get subjects by subject name.
+    """
+    getSubjectByName(subject_name: String!): [Subject!]!
+    """
+    """
+    getEnrollmentClassCodeBySubjectCode(subject_code: String!): [String!]
+    getStudentsByClassAndSubjectCode(class_code: String!, subject_code: String): [String!]
+}
+
+
+type Mutation {
+    """
+    Create a new user.
+    """
+    createUser(input: NewUser!): User!
+    """
+    Create multiple new users.
+    """
+    createMultipleUser(input: [NewUser!]): [User!]
+}
